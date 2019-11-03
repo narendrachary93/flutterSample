@@ -19,6 +19,11 @@ class SplashScreen extends StatefulWidget {
   }
 }
 
+class HomeScreen extends StatefulWidget {
+  @override
+   HomePage createState() => HomePage();
+}
+
 class SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
@@ -27,7 +32,7 @@ class SplashScreenState extends State<SplashScreen> {
       Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => HomePage(),
+            builder: (context) => HomeScreen(),
           ));
     });
   }
@@ -51,7 +56,7 @@ class SplashScreenState extends State<SplashScreen> {
   }
 }
 
-class HomePage extends StatelessWidget {
+class HomePage extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     Widget menuTitle = Container(
@@ -67,33 +72,47 @@ class HomePage extends StatelessWidget {
       ),
     );
 
+    List<String> litems = [
+      "1",
+      "2",
+      "Third",
+      "4",
+      "1",
+      "2",
+      "Third",
+      "4",
+      "1",
+      "2",
+      "Third",
+      "4"
+    ];
+
     Widget menuSection = Container(
       padding: EdgeInsets.all(10.0),
       height: 60.0,
       child: Center(
-          child: ListView(
-        children: <Widget>[
-          Container(
-              height: 40,
-              child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  children: List.generate(10, (int index) {
-                    return Card(
-                      color: Colors.orange[800],
-                      child: Container(
-                        padding: EdgeInsets.all(8.0),
-                        child: Text(
-                          "hello how r u",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16.0,
-                          ),
-                        ),
+        child: Container(
+          height: 40,
+          child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: litems.length,
+              itemBuilder: (BuildContext ctxt, int index) {
+                return Card(
+                  color: Colors.orange[800],
+                  child: Container(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text(
+                      litems[index],
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16.0,
                       ),
-                    );
-                  })))
-        ],
-      )),
+                    ),
+                  ),
+                );
+              }),
+        ),
+      ),
     );
 
     Widget popularTitle = Container(
@@ -111,36 +130,80 @@ class HomePage extends StatelessWidget {
 
     Widget popularSection = Container(
       padding: EdgeInsets.all(10.0),
-      height: 600.0,
       child: Center(
-          child: ListView(
-        children: <Widget>[
-          Container(
-              height: 600.0,
-              child: ListView(
-                  scrollDirection: Axis.vertical,
-                  children: List.generate(10, (int index) {
-                    return Card(
-                      color: Colors.orange[800],
-                      child: Container(
-                        height: 120.0,
-                        padding: EdgeInsets.all(8.0),
-                        child: Container(
-                          child: Row(
-                            children: <Widget>[
-                              Image.asset(
-                                'https://assets3.thrillist.com/v1/image/2797371/size/tmg-article_default_mobile.jpg',
-                                width: 60,
-                                height: 40,
-                                fit: BoxFit.cover,
+          child: Container(
+        height: 600.0,
+        child: ListView.builder(
+            itemCount: litems.length,
+            itemBuilder: (BuildContext ctxt, int index) {
+              return Card(
+                child: Container(
+                  height: 120.0,
+                  child: Container(
+                    child: Row(
+                      children: <Widget>[
+                        Expanded(
+                            flex: 1,
+                            child: Container(
+                                height: 90.0,
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                      fit: BoxFit.cover,
+                                      image: NetworkImage(
+                                          'https://assets3.thrillist.com/v1/image/2797371/size/tmg-article_default_mobile.jpg')),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(15.0)),
+                                ))),
+                        Expanded(
+                            flex: 2,
+                            child: Container(
+                              padding: EdgeInsets.only(left: 10.0, top: 20.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Container(
+                                    child: Text(
+                                      "Fried Chicken ",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16.0),
+                                    ),
+                                  ),
+                                  Container(
+                                    padding: EdgeInsets.only(top: 5),
+                                    child: Text(
+                                      "INR 10.00",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16.0),
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    );
-                  })))
-        ],
+                            )),
+                        Expanded(
+                            flex: 1,
+                            child: Container(
+                                height: 40,
+                                child: Card(
+                                  color: Colors.orange[800],
+                                    child: Center(
+                                      child: Text(
+                                        "ADD",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16.0,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                )),
+                      ],
+                    ),
+                  ),
+                ),
+              );
+            }),
       )),
     );
 
