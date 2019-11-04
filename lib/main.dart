@@ -21,7 +21,7 @@ class SplashScreen extends StatefulWidget {
 
 class HomeScreen extends StatefulWidget {
   @override
-   HomePage createState() => HomePage();
+  HomePage createState() => HomePage();
 }
 
 class SplashScreenState extends State<SplashScreen> {
@@ -57,7 +57,20 @@ class SplashScreenState extends State<SplashScreen> {
 }
 
 class HomePage extends State<HomeScreen> {
-  @override
+  int number = 0;
+
+  void subtractNumbers() {
+    setState(() {
+      number = number - 1;
+    });
+  }
+
+  void addNumbers() {
+    setState(() {
+      number = number + 1;
+    });
+  }
+
   Widget build(BuildContext context) {
     Widget menuTitle = Container(
       padding: EdgeInsets.fromLTRB(10.0, 20.0, 0.0, 0.0),
@@ -86,6 +99,7 @@ class HomePage extends State<HomeScreen> {
       "Third",
       "4"
     ];
+
 
     Widget menuSection = Container(
       padding: EdgeInsets.all(10.0),
@@ -182,22 +196,41 @@ class HomePage extends State<HomeScreen> {
                               ),
                             )),
                         Expanded(
-                            flex: 1,
+                            flex: 2,
                             child: Container(
-                                height: 40,
-                                child: Card(
-                                  color: Colors.orange[800],
-                                    child: Center(
-                                      child: Text(
-                                        "ADD",
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 16.0,
-                                        ),
-                                      ),
+                              height: 40,
+                              child: Card(
+                                color: Colors.orange[800],
+                                child: Row(
+                                  children: <Widget>[
+                                    Expanded(
+                                      flex: 1,
+                                      child: FlatButton(
+                                          child: Icon(Icons.remove),
+                                          onPressed: (subtractNumbers)),
                                     ),
-                                  ),
-                                )),
+                                    Expanded(
+                                        flex: 1,
+                                        child: Center(
+                                          child: Text(
+                                            '$number',
+                                            style: new TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 14.0,
+                                              fontFamily: 'Roboto',
+                                            ),
+                                          ),
+                                        )),
+                                    Expanded(
+                                      flex: 1,
+                                      child: FlatButton(
+                                          child: Icon(Icons.add),
+                                          onPressed: (addNumbers)),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            )),
                       ],
                     ),
                   ),
