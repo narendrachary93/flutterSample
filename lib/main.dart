@@ -72,6 +72,12 @@ class HomePage extends State<HomeScreen> {
     });
   }
 
+  void getList(dynamic data){
+    setState(() {
+      print(data);
+    });
+  }
+
   Widget build(BuildContext context) {
     Widget menuTitle = Container(
       padding: EdgeInsets.fromLTRB(10.0, 20.0, 0.0, 0.0),
@@ -86,20 +92,7 @@ class HomePage extends State<HomeScreen> {
       ),
     );
 
-    List<String> litems = [
-      "1",
-      "2",
-      "Third",
-      "4",
-      "1",
-      "2",
-      "Third",
-      "4",
-      "1",
-      "2",
-      "Third",
-      "4"
-    ];
+
 
     Widget menuSection = Container(
       padding: EdgeInsets.all(10.0),
@@ -107,24 +100,32 @@ class HomePage extends State<HomeScreen> {
       child: Center(
         child: Container(
           height: 40,
-          child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: litems.length,
-              itemBuilder: (BuildContext ctxt, int index) {
-                return Card(
-                  color: Colors.orange[800],
-                  child: Container(
-                    padding: EdgeInsets.all(8.0),
-                    child: Text(
-                      litems[index],
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16.0,
+          child: FutureBuilder(
+            builder: (context, snapshot) {
+              var myData = json.decode(snapshot.data.toString());
+              return new ListView.builder(
+                itemCount: myData == null ? 0 : myData.length,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (BuildContext context, int index) {
+                  return Card(
+                    child: RaisedButton(
+                      color: Colors.orange[800],
+                      onPressed: () => getList(myData[index]["id"]),
+                      child: Text(
+                        myData[index]["name"],
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16.0,
+                        ),
                       ),
                     ),
-                  ),
-                );
-              }),
+                  );
+                },
+              );
+            },
+            future: DefaultAssetBundle.of(context)
+                .loadString("assets/menu_list.json"),
+          ),
         ),
       ),
     );
@@ -247,7 +248,7 @@ class HomePage extends State<HomeScreen> {
                 );
               },
               future: DefaultAssetBundle.of(context)
-                  .loadString("assets/person.json"),
+                  .loadString("assets/food_items.json"),
             ),
           ),
         ),
