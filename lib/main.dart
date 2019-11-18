@@ -72,7 +72,7 @@ class HomePage extends State<HomeScreen> {
     });
   }
 
-  void getList(dynamic data){
+  void getList(dynamic data) {
     setState(() {
       print(data);
     });
@@ -91,8 +91,6 @@ class HomePage extends State<HomeScreen> {
         ],
       ),
     );
-
-
 
     Widget menuSection = Container(
       padding: EdgeInsets.all(10.0),
@@ -124,24 +122,24 @@ class HomePage extends State<HomeScreen> {
               );
             },
             future: DefaultAssetBundle.of(context)
-                .loadString("assets/menu_list.json"),
+                .loadString("assets/food_items.json"),
           ),
         ),
       ),
     );
 
-    Widget popularTitle = Container(
-      padding: EdgeInsets.fromLTRB(10.0, 20.0, 0.0, 0.0),
-      child: Row(
-        children: <Widget>[
-          Text(
-            "Popular",
-            style: TextStyle(
-                color: Colors.red, fontSize: 18.0, fontWeight: FontWeight.bold),
-          ),
-        ],
-      ),
-    );
+    // Widget popularTitle = Container(
+    //   padding: EdgeInsets.fromLTRB(10.0, 20.0, 0.0, 0.0),
+    //   child: Row(
+    //     children: <Widget>[
+    //       Text(
+    //         "Popular",
+    //         style: TextStyle(
+    //             color: Colors.red, fontSize: 18.0, fontWeight: FontWeight.bold),
+    //       ),
+    //     ],
+    //   ),
+    // );
 
     Widget popularSection = Container(
       padding: EdgeInsets.all(10.0),
@@ -153,102 +151,149 @@ class HomePage extends State<HomeScreen> {
             child: FutureBuilder(
               builder: (context, snapshot) {
                 var myData = json.decode(snapshot.data.toString());
-                return new ListView.builder(
+                return ListView.builder(
                   itemCount: myData == null ? 0 : myData.length,
                   itemBuilder: (BuildContext context, int index) {
-                    return Card(
-                      child: Container(
-                        height: 120.0,
-                        child: Container(
-                          child: Row(
-                            children: <Widget>[
-                              Expanded(
-                                  flex: 1,
-                                  child: Container(
-                                      height: 90.0,
-                                      decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                            fit: BoxFit.cover,
-                                            image: NetworkImage(
-                                                myData[index]["image"])),
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(15.0)),
-                                      ))),
-                              Expanded(
-                                  flex: 2,
-                                  child: Container(
-                                    padding:
-                                        EdgeInsets.only(left: 10.0, top: 20.0),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: <Widget>[
-                                        Container(
-                                          child: Text(
-                                            myData[index]["name"],
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 16.0),
-                                          ),
-                                        ),
-                                        Container(
-                                          padding: EdgeInsets.only(top: 5),
-                                          child: Text(
-                                            "INR " + myData[index]["price"],
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 16.0),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  )),
-                              Expanded(
-                                  flex: 2,
-                                  child: Container(
-                                    height: 40,
-                                    child: Card(
-                                      color: Colors.orange[800],
-                                      child: Row(
-                                        children: <Widget>[
-                                          Expanded(
-                                            flex: 1,
-                                            child: FlatButton(
-                                                child: Icon(Icons.remove),
-                                                onPressed: (subtractNumbers)),
-                                          ),
-                                          Expanded(
-                                              flex: 1,
-                                              child: Center(
-                                                child: Text(
-                                                  '$number',
-                                                  style: new TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 14.0,
-                                                    fontFamily: 'Roboto',
-                                                  ),
-                                                ),
-                                              )),
-                                          Expanded(
-                                            flex: 1,
-                                            child: FlatButton(
-                                                child: Icon(Icons.add),
-                                                onPressed: (addNumbers)),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  )),
-                            ],
+                    var childContent = myData[index]['content'];
+
+                    return Container(
+                      child: Row(
+                        children: <Widget>[
+                          Text(
+                            myData[index]["heading"],
+                            style: TextStyle(
+                                color: Colors.red,
+                                fontSize: 18.0,
+                                fontWeight: FontWeight.bold),
                           ),
-                        ),
+
+                          // FutureBuilder(
+                          //   builder: (context, snapshot) {
+                          //     var childItems =
+                          //         json.decode(snapshot.data.toString());
+                          //     return ListView.builder(
+                          //         itemCount: childItems == null
+                          //             ? 0
+                          //             : childItems.length,
+                          //         itemBuilder:
+                          //             (BuildContext context, int index) {
+                          //           return Card(
+                          //             child: Container(
+                          //               child: Text("hello"),
+                          //             ),
+                          //           );
+                          //         });
+                          //   },
+                          //   future: DefaultAssetBundle.of(context)
+                          //       .loadString(childContent),
+                          // ),
+
+                          //   myData[index]['content'].forEach((data) {
+                          //     Card(
+                          //       child: Container(
+                          //         height: 120.0,
+                          //         child: Container(
+                          //           child: Row(
+                          //             children: <Widget>[
+                          //               Expanded(
+                          //                   flex: 1,
+                          //                   child: Container(
+                          //                       height: 90.0,
+                          //                       decoration: BoxDecoration(
+                          //                         image: DecorationImage(
+                          //                             fit: BoxFit.cover,
+                          //                             image: NetworkImage(
+                          //                                 data["image"])),
+                          //                         borderRadius: BorderRadius.all(
+                          //                             Radius.circular(15.0)),
+                          //                       ))),
+                          //               Expanded(
+                          //                   flex: 2,
+                          //                   child: Container(
+                          //                     padding: EdgeInsets.only(
+                          //                         left: 10.0, top: 20.0),
+                          //                     child: Column(
+                          //                       crossAxisAlignment:
+                          //                           CrossAxisAlignment.start,
+                          //                       children: <Widget>[
+                          //                         Container(
+                          //                           child: Text(
+                          //                             data["name"],
+                          //                             style: TextStyle(
+                          //                                 fontWeight:
+                          //                                     FontWeight.bold,
+                          //                                 fontSize: 16.0),
+                          //                           ),
+                          //                         ),
+                          //                         Container(
+                          //                           padding:
+                          //                               EdgeInsets.only(top: 5),
+                          //                           child: Text(
+                          //                             "INR " + data["price"],
+                          //                             style: TextStyle(
+                          //                                 fontWeight:
+                          //                                     FontWeight.bold,
+                          //                                 fontSize: 16.0),
+                          //                           ),
+                          //                         ),
+                          //                       ],
+                          //                     ),
+                          //                   )),
+                          //               Expanded(
+                          //                   flex: 2,
+                          //                   child: Container(
+                          //                     height: 40,
+                          //                     child: Card(
+                          //                       color: Colors.orange[800],
+                          //                       child: Row(
+                          //                         children: <Widget>[
+                          //                           Expanded(
+                          //                             flex: 1,
+                          //                             child: FlatButton(
+                          //                                 child:
+                          //                                     Icon(Icons.remove),
+                          //                                 onPressed:
+                          //                                     (subtractNumbers)),
+                          //                           ),
+                          //                           Expanded(
+                          //                               flex: 1,
+                          //                               child: Center(
+                          //                                 child: Text(
+                          //                                   '$number',
+                          //                                   style: new TextStyle(
+                          //                                     fontWeight:
+                          //                                         FontWeight.bold,
+                          //                                     fontSize: 14.0,
+                          //                                     fontFamily:
+                          //                                         'Roboto',
+                          //                                   ),
+                          //                                 ),
+                          //                               )),
+                          //                           Expanded(
+                          //                             flex: 1,
+                          //                             child: FlatButton(
+                          //                                 child: Icon(Icons.add),
+                          //                                 onPressed:
+                          //                                     (addNumbers)),
+                          //                           ),
+                          //                         ],
+                          //                       ),
+                          //                     ),
+                          //                   )),
+                          //             ],
+                          //           ),
+                          //         ),
+                          //       ),
+                          //     );
+                          //   })
+                        ],
                       ),
                     );
                   },
                 );
               },
               future: DefaultAssetBundle.of(context)
-                  .loadString("assets/food_items.json"),
+                  .loadString("assets/menu_list.json"),
             ),
           ),
         ),
@@ -263,7 +308,6 @@ class HomePage extends State<HomeScreen> {
               children: <Widget>[
                 menuTitle,
                 menuSection,
-                popularTitle,
                 popularSection,
               ],
             ),
