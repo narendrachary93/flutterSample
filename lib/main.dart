@@ -325,6 +325,26 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  int number = 0;
+
+  void subtractNumbers() {
+    setState(() {
+      number = number - 1;
+    });
+  }
+
+  void addNumbers() {
+    setState(() {
+      number = number + 1;
+    });
+  }
+
+  void getList(dynamic data) {
+    setState(() {
+      print(data);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -340,18 +360,112 @@ class _HomePageState extends State<HomePage> {
                 return Column(
                   children: <Widget>[
                     Text(data[index].heading),
-                    ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: data[index].content.length,
-                      itemBuilder: (BuildContext context, int index1) {
-                        return Text(data[index].content[index1].name);
-                      },
-                    )
-                  ],
-                );
-              },
-            );
-          }),
-    );
+                    
+                       Column(
+                          children: <Widget>[
+                        for(var content in data[index].content)  Card(
+                              child: Container(
+                                height: 120.0,
+                                child: Container(
+                                  child: Row(
+                                    children: <Widget>[
+                                      Expanded(
+                                          flex: 1,
+                                          child: Container(
+                                              height: 90.0,
+                                              decoration: BoxDecoration(
+                                                image: DecorationImage(
+                                                    fit: BoxFit.cover,
+                                                    image: NetworkImage(
+                                                        content
+                                                        .image)),
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(15.0)),
+                                              ))),
+                                      Expanded(
+                                          flex: 2,
+                                          child: Container(
+                                            padding: EdgeInsets.only(
+                                                left: 10.0, top: 20.0),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: <Widget>[
+                                                Container(
+                                                  child: Text(
+                                                   content
+                                                        .name,
+                                                    style: TextStyle(
+                                                        fontWeight: FontWeight.bold,
+                                                        fontSize: 16.0),
+                                                  ),
+                                                ),
+                                                Container(
+                                                  padding: EdgeInsets.only(top: 5),
+                                                  child: Text(
+                                                    "INR " +
+                                                       content
+                                                            .name,
+                                                    style: TextStyle(
+                                                        fontWeight: FontWeight.bold,
+                                                        fontSize: 16.0),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          )),
+                                      Expanded(
+                                          flex: 2,
+                                          child: Container(
+                                            height: 40,
+                                            child: Card(
+                                              color: Colors.orange[800],
+                                              child: Row(
+                                                children: <Widget>[
+                                                  Expanded(
+                                                    flex: 1,
+                                                    child: FlatButton(
+                                                        child: Icon(Icons.remove),
+                                                        onPressed:
+                                                            (subtractNumbers)),
+                                                  ),
+                                                  Expanded(
+                                                      flex: 1,
+                                                      child: Center(
+                                                        child: Text(
+                                                          '$number',
+                                                          style: new TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            fontSize: 14.0,
+                                                            fontFamily: 'Roboto',
+                                                          ),
+                                                        ),
+                                                      )),
+                                                  Expanded(
+                                                    flex: 1,
+                                                    child: FlatButton(
+                                                        child: Icon(Icons.add),
+                                                        onPressed: (addNumbers(content.id,index))),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          )),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        )]);
+                      
+               }
+             );
+              
+          }));
+                        
+          
+  
   }
 }
