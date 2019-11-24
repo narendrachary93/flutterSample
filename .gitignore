@@ -71,5 +71,8 @@
 !**/ios/**/default.pbxuser
 !**/ios/**/default.perspectivev3
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
+<<<<<<< HEAD
 
+=======
+>>>>>>> 59b269631d8c624aaa0bf588d16586f6d31b40ec
 node_modules/
