@@ -348,22 +348,21 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: FutureBuilder(
-          future: DefaultAssetBundle.of(context)
-              .loadString("assets/menu_list.json"),
-          builder: (context, snapshot) {
-            var data = menuListModelFromJson(snapshot.data);
+        body: FutureBuilder(
+            future: DefaultAssetBundle.of(context)
+                .loadString("assets/menu_list.json"),
+            builder: (context, snapshot) {
+              var data = menuListModelFromJson(snapshot.data);
 
-            return ListView.builder(
-              itemCount: data.length,
-              itemBuilder: (BuildContext context, int index) {
-                return Column(
-                  children: <Widget>[
-                    Text(data[index].heading),
-                    
-                       Column(
-                          children: <Widget>[
-                        for(var content in data[index].content)  Card(
+              return ListView.builder(
+                  itemCount: data.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Column(children: <Widget>[
+                      Text(data[index].heading),
+                      Column(
+                        children: <Widget>[
+                          for (var content in data[index].content)
+                            Card(
                               child: Container(
                                 height: 120.0,
                                 child: Container(
@@ -377,8 +376,7 @@ class _HomePageState extends State<HomePage> {
                                                 image: DecorationImage(
                                                     fit: BoxFit.cover,
                                                     image: NetworkImage(
-                                                        content
-                                                        .image)),
+                                                        content.image)),
                                                 borderRadius: BorderRadius.all(
                                                     Radius.circular(15.0)),
                                               ))),
@@ -393,21 +391,21 @@ class _HomePageState extends State<HomePage> {
                                               children: <Widget>[
                                                 Container(
                                                   child: Text(
-                                                   content
-                                                        .name,
+                                                    content.name,
                                                     style: TextStyle(
-                                                        fontWeight: FontWeight.bold,
+                                                        fontWeight:
+                                                            FontWeight.bold,
                                                         fontSize: 16.0),
                                                   ),
                                                 ),
                                                 Container(
-                                                  padding: EdgeInsets.only(top: 5),
+                                                  padding:
+                                                      EdgeInsets.only(top: 5),
                                                   child: Text(
-                                                    "INR " +
-                                                       content
-                                                            .name,
+                                                    "INR " + content.name,
                                                     style: TextStyle(
-                                                        fontWeight: FontWeight.bold,
+                                                        fontWeight:
+                                                            FontWeight.bold,
                                                         fontSize: 16.0),
                                                   ),
                                                 ),
@@ -425,7 +423,8 @@ class _HomePageState extends State<HomePage> {
                                                   Expanded(
                                                     flex: 1,
                                                     child: FlatButton(
-                                                        child: Icon(Icons.remove),
+                                                        child:
+                                                            Icon(Icons.remove),
                                                         onPressed:
                                                             (subtractNumbers)),
                                                   ),
@@ -438,7 +437,8 @@ class _HomePageState extends State<HomePage> {
                                                             fontWeight:
                                                                 FontWeight.bold,
                                                             fontSize: 14.0,
-                                                            fontFamily: 'Roboto',
+                                                            fontFamily:
+                                                                'Roboto',
                                                           ),
                                                         ),
                                                       )),
@@ -446,7 +446,8 @@ class _HomePageState extends State<HomePage> {
                                                     flex: 1,
                                                     child: FlatButton(
                                                         child: Icon(Icons.add),
-                                                        onPressed: (addNumbers(content.id,index))),
+                                                        onPressed:
+                                                            (addNumbers)),
                                                   ),
                                                 ],
                                               ),
@@ -457,15 +458,10 @@ class _HomePageState extends State<HomePage> {
                                 ),
                               ),
                             ),
-                          ],
-                        )]);
-                      
-               }
-             );
-              
-          }));
-                        
-          
-  
+                        ],
+                      )
+                    ]);
+                  });
+            }));
   }
 }
