@@ -1,18 +1,16 @@
 {
-    "name": "backend",
+    "name": "node-easy-notes-app",
     "version": "1.0.0",
-    "description": "api calls",
-    "main": "index.js",
+    "description": "Never miss a thing in Life. Take notes quickly. Organize and keep track of all your notes.",
+    "main": "server.js",
     "scripts": {
-        "test": "npm test",
-        "start": "node server.js",
-        "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix dist && npm run build --prefix dist"
+        "test": "echo \"Error: no test specified\" && exit 1"
     },
-    "author": "",
-    "license": "ISC",
+    "author": "team",
+    "license": "MIT",
     "dependencies": {
-        "body-parser": "^1.19.0",
-        "express": "^4.17.1",
+        "body-parser": "^1.18.3",
+        "express": "^4.16.3",
         "mongoose": "^5.7.12"
     }
 }
